@@ -1,0 +1,35 @@
+.incidencias-container {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 24px;
+}
+
+h2 {
+  margin-bottom: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+th {
+  background-color: #f4f4f4;
+}
+
+.error {
+  color: #b00020;
+}
+.crear-btn {
+  margin-bottom: 16px;
+  padding: 10px 16px;
+  cursor: pointer;
+}
