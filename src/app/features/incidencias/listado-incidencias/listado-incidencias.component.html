@@ -1,6 +1,6 @@
 <section class="incidencias-container">
   <h2>Listado de incidencias</h2>
-  <button class="crear-btn" routerLink="/incidencias/nueva">
+  <button class="crear-btn" routerLink="/incidencias/nueva" *ngIf="puedeCrearIncidencia()">
     Nueva incidencia
   </button>
 

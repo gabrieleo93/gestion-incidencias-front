@@ -1,0 +1,16 @@
+<nav class="navbar" *ngIf="authService.estaAutenticado()">
+  <div class="navbar__brand">
+    Gestión de Incidencias
+  </div>
+
+  <div class="navbar__links">
+    <a routerLink="/incidencias">Incidencias</a>
+    <a routerLink="/incidencias/nueva" *ngIf="puedeCrearIncidencia()">Nueva incidencia</a>
+  </div>
+
+  <div class="navbar__user">
+    <span>{{ nombreUsuario }}</span>
+    <span class="navbar__role">{{ rolUsuario }}</span>
+    <button type="button" (click)="cerrarSesion()">Cerrar sesión</button>
+  </div>
+</nav>

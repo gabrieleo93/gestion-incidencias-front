@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { LoginComponent } from './features/auth/login/login.component';
 import { ListadoIncidenciasComponent } from './features/incidencias/listado-incidencias/listado-incidencias.component';
 import { CrearIncidenciaComponent } from './features/incidencias/crear-incidencia/crear-incidencia.component';
+import { authGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -10,11 +11,13 @@ export const routes: Routes = [
   },
   {
     path: 'incidencias',
-    component: ListadoIncidenciasComponent
+    component: ListadoIncidenciasComponent,
+    canActivate: [authGuard]
   },
   {
-    path: 'incidencia/nueva',
-    component: CrearIncidenciaComponent
+    path: 'incidencias/nueva',
+    component: CrearIncidenciaComponent,
+    canActivate: [authGuard]
   },
   {
     path: '',

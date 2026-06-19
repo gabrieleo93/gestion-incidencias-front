@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Incidencia } from '../../../models/incidencia.model';
 import { IncidenciaService } from '../../../core/services/incidencia.service';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-listado-incidencias',
@@ -16,7 +17,7 @@ export class ListadoIncidenciasComponent implements OnInit {
   incidencias: Incidencia[] = [];
   mensajeError: string = '';
 
-  constructor(private incidenciaService: IncidenciaService) { }
+  constructor(private incidenciaService: IncidenciaService, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.cargarIncidencias();
@@ -33,4 +34,7 @@ export class ListadoIncidenciasComponent implements OnInit {
       }
     });
   }
+  puedeCrearIncidencia(): boolean {
+  return this.authService.esAdmin() || this.authService.esUsuario();
+}
 }

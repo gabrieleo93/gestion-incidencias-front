@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AuthRequest } from '../../models/auth-request.model';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { AuthResponse } from '../../models/auth-response.model';
 
 @Injectable({
@@ -28,15 +28,40 @@ export class AuthService {
   obtenerToken(): string | null {
     return localStorage.getItem('token');
   }
+
+  obtenerUsuarioId(): String | null {
+    return localStorage.getItem('usuarioId');
+  }
+  obtenerNombre(): string | null {
+    return localStorage.getItem('nombre');
+  }
+  obtenerEmail(): string | null {
+    return localStorage.getItem('email');
+  }
+
+  esAdmin(): boolean {
+    return this.obtenerRol() === 'ADMIN';
+  }
+  esTecnico(): boolean {
+    return this.obtenerRol() === 'TECNICO';
+  }
+  esUsuario(): boolean {
+    return this.obtenerRol() === 'USER';
+  }
   obtenerRol(): string | null {
     return localStorage.getItem('rol');
   }
+
 
   estaAutenticado(): boolean {
     return !!this.obtenerToken();
   }
 
   logout(): void {
-    localStorage.clear();
+    localStorage.removeItem('token');
+    localStorage.removeItem('usuarioId');
+    localStorage.removeItem('nombre');
+    localStorage.removeItem('email');
+    localStorage.removeItem('rol');
   }
 }
