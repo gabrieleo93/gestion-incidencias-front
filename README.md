@@ -65,6 +65,7 @@ http://localhost:8082
 * Interceptor HTTP para enviar automáticamente el token en peticiones protegidas.
 * Navegación entre pantallas con Angular Router.
 * Listado de incidencias desde el backend.
+* Listado de incidencias propias para usuarios con rol `USER` mediante `/api/incidencias/mis`.
 * Creación de nuevas incidencias desde formulario Angular.
 * Comunicación real con backend protegido por JWT.
 * Navbar superior con:
@@ -79,6 +80,10 @@ http://localhost:8082
   * elimina datos de sesión del `localStorage`
   * redirige al usuario a `/login`
 * AuthGuard para proteger rutas privadas.
+* Diseño visual mejorado en login, navbar, listado y formulario de creación.
+* Badges de color para estado y prioridad.
+* Tabla de incidencias responsive con scroll horizontal en móvil.
+* Botones y mensajes visuales más consistentes.
 * Control visual por rol en la interfaz:
 
   * ADMIN puede ver opción de crear incidencia
@@ -297,6 +302,8 @@ Regla aplicada actualmente:
 
 Esta lógica está aplicada tanto en la navbar como en el listado de incidencias.
 
+Además, cuando el usuario autenticado tiene rol `USER`, el frontend consume los endpoints `/api/incidencias/mis` y `/api/incidencias/mis/{id}` para mostrar únicamente sus incidencias propias.
+
 ---
 
 ## Instalación y ejecución
@@ -373,6 +380,7 @@ Se realizaron pruebas manuales para validar:
 * Almacenamiento de datos del usuario en `localStorage`.
 * Envío automático del token mediante interceptor.
 * Carga de incidencias desde backend.
+* Carga de incidencias propias para usuarios con rol `USER`.
 * Creación de incidencias desde Angular.
 * Navegación entre login, listado y formulario de creación.
 * Navbar visible solo con sesión activa.
@@ -383,6 +391,8 @@ Se realizaron pruebas manuales para validar:
 * Control visual por rol en navbar.
 * Control visual por rol en listado de incidencias.
 * Validación de que el usuario TECNICO no vea la opción de crear incidencia.
+* Compilación del frontend con `npm run build`.
+* Verificación de archivos en UTF-8 sin caracteres corruptos ni bytes nulos.
 
 ---
 
@@ -514,13 +524,9 @@ Esta acción debería ser visible principalmente para ADMIN.
 
 Pendiente mejorar:
 
-* Estilos generales.
-* Tabla de incidencias.
-* Formularios.
-* Botones.
-* Espaciados.
-* Colores por estado.
-* Colores por prioridad.
+* Capturas reales para el README.
+* Estados de carga.
+* Mensajes de éxito.
 * Mensajes de error.
 * Mensajes de éxito.
 * Indicadores de carga.
@@ -594,6 +600,20 @@ git add .
 git commit -m "feat: add navbar logout auth guard and role based UI"
 git push
 ```
+
+---
+
+## Cambios recientes
+
+### 2026-07-08
+
+* Se corrigieron problemas de codificación y se verificó UTF-8 en archivos fuente y README.
+* Se mejoró el diseño visual del login, navbar, listado de incidencias y formulario de creación.
+* Se añadieron badges de color para estado y prioridad en el listado.
+* Se mejoró el comportamiento responsive del listado y la navbar.
+* Se actualizó el listado para que un usuario `USER` consulte `/api/incidencias/mis` y pueda ver sus propias incidencias.
+* Se actualizó el detalle para que un usuario `USER` consulte `/api/incidencias/mis/{id}`.
+* Se validó el frontend con `npm run build`.
 
 ---
 

@@ -1,49 +1,107 @@
+﻿/* Cambio visual: formulario y botones alineados con el nuevo estilo del front. */
 .crear-incidencia-container {
-  max-width: 600px;
-  margin: 40px auto;
-  padding: 24px;
-  border: 1px solid #ddd;
+  max-width: 680px;
+  margin: 36px auto 48px;
+  padding: 30px;
+  border: 1px solid #d8e0ea;
   border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 14px 32px rgba(15, 23, 42, 0.08);
 }
 
 h2 {
-  margin-bottom: 24px;
+  margin: 0 0 24px;
+  color: #0f172a;
+  font-size: 28px;
 }
 
 .form-group {
-  margin-bottom: 16px;
+  margin-bottom: 18px;
 }
 
 label {
   display: block;
-  margin-bottom: 6px;
-  font-weight: 600;
+  margin-bottom: 8px;
+  color: #334155;
+  font-size: 14px;
+  font-weight: 800;
 }
 
 input,
 textarea,
 select {
   width: 100%;
-  padding: 10px;
+  padding: 12px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
   box-sizing: border-box;
+  color: #0f172a;
+  font: inherit;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.16);
+}
+
+textarea {
+  resize: vertical;
 }
 
 .buttons {
   display: flex;
   gap: 12px;
+  margin-top: 22px;
 }
 
 button {
-  padding: 10px 16px;
+  padding: 11px 16px;
+  border: 0;
+  border-radius: 8px;
+  background: #2563eb;
+  color: #ffffff;
   cursor: pointer;
+  font: inherit;
+  font-weight: 800;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+button:hover {
+  background: #1d4ed8;
+  transform: translateY(-1px);
 }
 
 .secondary {
-  background-color: #f4f4f4;
-  border: 1px solid #ccc;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  color: #334155;
+}
+
+.secondary:hover {
+  background: #f8fafc;
 }
 
 .error {
-  color: #b00020;
+  color: #b91c1c;
   font-size: 14px;
+  margin-top: 7px;
+}
+
+@media (max-width: 640px) {
+  .crear-incidencia-container {
+    margin: 24px 14px 36px;
+    padding: 24px;
+  }
+
+  .buttons {
+    flex-direction: column;
+  }
+
+  button {
+    width: 100%;
+  }
 }

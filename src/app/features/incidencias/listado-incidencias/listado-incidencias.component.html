@@ -1,38 +1,62 @@
+﻿<!-- Cambio visual: listado con cabecera, tabla profesional, badges y acciones claras. -->
 <section class="incidencias-container">
-  <h2>Listado de incidencias</h2>
-  <button class="crear-btn" routerLink="/incidencias/nueva" *ngIf="puedeCrearIncidencia()">
-    Nueva incidencia
-  </button>
+  <header class="page-header">
+    <div>
+      <span class="page-kicker">Panel de trabajo</span>
+      <h2>Listado de incidencias</h2>
+      <p>Consulta el estado, prioridad y detalle de cada incidencia registrada.</p>
+    </div>
 
-  <p *ngIf="mensajeError" class="error">
+    <button class="crear-btn" routerLink="/incidencias/nueva" *ngIf="puedeCrearIncidencia()">
+      Nueva incidencia
+    </button>
+  </header>
+
+  <p *ngIf="mensajeError" class="error-card">
     {{ mensajeError }}
   </p>
 
-  <p *ngIf="incidencias.length === 0 && !mensajeError">
+  <div *ngIf="incidencias.length === 0 && !mensajeError" class="empty-state">
     No hay incidencias para mostrar.
-  </p>
+  </div>
 
-  <table *ngIf="incidencias.length > 0">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Título</th>
-        <th>Estado</th>
-        <th>Prioridad</th>
-        <th>Usuario creador</th>
-        <th>Fecha creación</th>
-      </tr>
-    </thead>
+  <div class="table-card" *ngIf="incidencias.length > 0">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Título</th>
+          <th>Estado</th>
+          <th>Prioridad</th>
+          <th>Usuario creador</th>
+          <th>Fecha creación</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
 
-    <tbody>
-      <tr *ngFor="let incidencia of incidencias">
-        <td>{{ incidencia.id }}</td>
-        <td>{{ incidencia.titulo }}</td>
-        <td>{{ incidencia.estado }}</td>
-        <td>{{ incidencia.prioridad }}</td>
-        <td>{{ incidencia.nombreUsuarioCreador }}</td>
-        <td>{{ incidencia.fechaCreacion }}</td>
-      </tr>
-    </tbody>
-  </table>
+      <tbody>
+        <tr *ngFor="let incidencia of incidencias">
+          <td class="id-cell">#{{ incidencia.id }}</td>
+          <td class="title-cell">{{ incidencia.titulo }}</td>
+          <td>
+            <span class="badge" [ngClass]="getEstadoClass(incidencia.estado)">
+              {{ incidencia.estado }}
+            </span>
+          </td>
+          <td>
+            <span class="badge" [ngClass]="getPrioridadClass(incidencia.prioridad)">
+              {{ incidencia.prioridad }}
+            </span>
+          </td>
+          <td>{{ incidencia.nombreUsuarioCreador }}</td>
+          <td>{{ incidencia.fechaCreacion | date:'dd/MM/yyyy HH:mm' }}</td>
+          <td>
+            <button [routerLink]="['/incidencias', incidencia.id]" class="detalle-btn">
+              Ver detalle
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </section>

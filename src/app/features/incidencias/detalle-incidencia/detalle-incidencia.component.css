@@ -1,0 +1,69 @@
+.detalle-container {
+  padding: 30px;
+  max-width: 900px;
+}
+
+.volver-btn {
+  margin-bottom: 25px;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  background-color: #1f2937;
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.volver-btn:hover {
+  background-color: #111827;
+}
+
+.detalle-container h2 {
+  margin-bottom: 20px;
+  font-size: 28px;
+  color: #111827;
+}
+
+.detalle-card {
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 25px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+}
+
+.detalle-card h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #111827;
+}
+
+.detalle-card p {
+  margin: 12px 0;
+  font-size: 16px;
+  color: #374151;
+}
+
+.detalle-card strong {
+  color: #111827;
+}
+
+.error {
+  color: #b91c1c;
+  background-color: #fee2e2;
+  padding: 12px;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+.estado,
+.prioridad {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 700;
+  background-color: #e5e7eb;
+  color: #111827;
+}

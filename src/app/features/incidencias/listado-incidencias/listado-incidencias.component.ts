@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Incidencia } from '../../../models/incidencia.model';
@@ -24,17 +24,34 @@ export class ListadoIncidenciasComponent implements OnInit {
   }
 
   cargarIncidencias(): void {
-    this.incidenciaService.listarIncidencias().subscribe({
+    // Cambio funcional: USER consulta sus incidencias propias; ADMIN/TECNICO consultan el listado general.
+    const incidencias$ = this.authService.esUsuario()
+      ? this.incidenciaService.listarMisIncidencias()
+      : this.incidenciaService.listarIncidencias();
+
+    incidencias$.subscribe({
       next: (data) => {
         this.incidencias = data;
       },
       error: (error) => {
         console.log('Error al cargar incidencias', error);
-        this.mensajeError = 'No se pudieron cargar las incidencias';
+        this.mensajeError = this.authService.esUsuario()
+          ? 'No se pudieron cargar tus incidencias'
+          : 'No se pudieron cargar las incidencias';
       }
     });
   }
+
   puedeCrearIncidencia(): boolean {
-  return this.authService.esAdmin() || this.authService.esUsuario();
-}
+    return this.authService.esAdmin() || this.authService.esUsuario();
+  }
+
+  // Cambio visual: clases para mostrar estado y prioridad como badges de color.
+  getEstadoClass(estado: Incidencia['estado']): string {
+    return `badge--estado-${estado.toLowerCase().replace('_', '-')}`;
+  }
+
+  getPrioridadClass(prioridad: Incidencia['prioridad']): string {
+    return `badge--prioridad-${prioridad.toLowerCase()}`;
+  }
 }

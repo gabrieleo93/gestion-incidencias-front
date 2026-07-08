@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+﻿import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -18,10 +18,24 @@ export class IncidenciaService {
   ) { }
 
   listarIncidencias(): Observable<Incidencia[]> {
-
     return this.http.get<Incidencia[]>(this.apiUrl);
   }
+
+  // Cambio funcional: endpoint para que USER vea solo sus propias incidencias.
+  listarMisIncidencias(): Observable<Incidencia[]> {
+    return this.http.get<Incidencia[]>(`${this.apiUrl}/mis`);
+  }
+
   crearIncidencia(request: IncidenciaRequest): Observable<Incidencia> {
     return this.http.post<Incidencia>(this.apiUrl, request);
+  }
+
+  obtenerIncidenciaPorId(id: number): Observable<Incidencia> {
+    return this.http.get<Incidencia>(`${this.apiUrl}/${id}`);
+  }
+
+  // Cambio funcional: endpoint para que USER abra solo el detalle de una incidencia propia.
+  obtenerMiIncidenciaPorId(id: number): Observable<Incidencia> {
+    return this.http.get<Incidencia>(`${this.apiUrl}/mis/${id}`);
   }
 }

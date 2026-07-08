@@ -1,3 +1,4 @@
+﻿/* Cambio visual: el layout raíz deja que cada pantalla controle su espaciado. */
 .main-content {
-  padding: 24px;
+  min-height: calc(100vh - 72px);
 }

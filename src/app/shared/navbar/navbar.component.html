@@ -1,6 +1,8 @@
+﻿<!-- Cambio visual: navbar más cuidada con marca, navegación y usuario agrupados. -->
 <nav class="navbar" *ngIf="authService.estaAutenticado()">
   <div class="navbar__brand">
-    Gestión de Incidencias
+    <span class="navbar__logo">GI</span>
+    <span>Gestión de Incidencias</span>
   </div>
 
   <div class="navbar__links">
@@ -9,8 +11,10 @@
   </div>
 
   <div class="navbar__user">
-    <span>{{ nombreUsuario }}</span>
-    <span class="navbar__role">{{ rolUsuario }}</span>
+    <div class="navbar__identity">
+      <span class="navbar__name">{{ nombreUsuario }}</span>
+      <span class="navbar__role">{{ rolUsuario }}</span>
+    </div>
     <button type="button" (click)="cerrarSesion()">Cerrar sesión</button>
   </div>
 </nav>

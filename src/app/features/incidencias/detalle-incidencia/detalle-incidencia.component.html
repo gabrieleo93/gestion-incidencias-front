@@ -1,0 +1,63 @@
+<section class="detalle-container">
+
+  <button routerLink="/incidencias" class="volver-btn">
+    Volver al listado
+  </button>
+
+  <h2>Detalle de incidencia</h2>
+
+  <p *ngIf="mensajeError" class="error">
+    {{ mensajeError }}
+  </p>
+
+  <p *ngIf="!incidencia && !mensajeError">
+    Cargando incidencia...
+  </p>
+
+  <article *ngIf="incidencia" class="detalle-card">
+
+    <h3>{{ incidencia.titulo }}</h3>
+
+    <p>
+      <strong>ID:</strong>
+      {{ incidencia.id }}
+    </p>
+
+    <p>
+      <strong>Descripción:</strong>
+      {{ incidencia.descripcion }}
+    </p>
+
+    <p>
+      <strong>Estado:</strong>
+      <span class="estado">{{ incidencia.estado }}</span>
+    </p>
+
+    <p>
+      <strong>Prioridad:</strong>
+      <span class="prioridad">{{ incidencia.prioridad }}</span>
+    </p>
+
+    <p>
+      <strong>Usuario creador:</strong>
+      {{ incidencia.nombreUsuarioCreador }}
+    </p>
+
+    <p>
+      <strong>Fecha de creación:</strong>
+      {{ incidencia.fechaCreacion | date:'dd/MM/yyyy HH:mm' }}
+    </p>
+
+    <p *ngIf="incidencia.fechaActualizacion">
+      <strong>Fecha de actualización:</strong>
+      {{ incidencia.fechaActualizacion | date:'dd/MM/yyyy HH:mm' }}
+    </p>
+
+    <p *ngIf="incidencia.fechaCierre">
+      <strong>Fecha de cierre:</strong>
+      {{ incidencia.fechaCierre | date:'dd/MM/yyyy HH:mm' }}
+    </p>
+
+  </article>
+
+</section>
