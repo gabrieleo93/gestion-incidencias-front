@@ -1,7 +1,7 @@
 ﻿import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
+import { environment } from '../../../environments/environment';
 import { Incidencia } from '../../models/incidencia.model';
 import { IncidenciaRequest } from '../../models/incidencia-request.model';
 
@@ -10,7 +10,7 @@ import { IncidenciaRequest } from '../../models/incidencia-request.model';
 })
 export class IncidenciaService {
 
-  private readonly apiUrl = 'http://localhost:8082/api/incidencias';
+  private readonly apiUrl = `${environment.apiUrl}/incidencias`;
 
   constructor(
     private http: HttpClient,

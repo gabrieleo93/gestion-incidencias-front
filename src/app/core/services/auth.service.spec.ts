@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import {provideHttpClient} from '@angular/common/http';
 import {HttpTestingController, provideHttpClientTesting} from '@angular/common/http/testing';
 import {AuthResponse} from '../../models/auth-response.model';
-
+import {environment} from '../../../environments/environment';
 import { AuthService } from './auth.service';
 import {AuthRequest} from '../../models/auth-request.model';
 
@@ -79,7 +79,7 @@ it('should send a POST request when logging in', () => {
   });
 
   const request = httpTesting.expectOne(
-    'http://localhost:8082/api/auth/login'
+    `${environment.apiUrl}/auth/login`
   );
 
   expect(request.request.method).toBe('POST');
