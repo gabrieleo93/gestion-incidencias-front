@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthResponse } from '../../models/auth-response.model';
 import { environment } from '../../../environments/environment';
+import { isUserRole, UserRole } from '../../models/user-role.model';
 
 @Injectable({
   providedIn: 'root'
@@ -30,8 +31,17 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
-  obtenerUsuarioId(): String | null {
-    return localStorage.getItem('usuarioId');
+  obtenerUsuarioId(): number | null {
+    const usuarioId = localStorage.getItem('usuarioId');
+
+    if (usuarioId === null) {
+      return null;
+    }
+
+    const usuarioIdNumerico = Number(usuarioId);
+    return Number.isInteger(usuarioIdNumerico) && usuarioIdNumerico > 0
+      ? usuarioIdNumerico
+      : null;
   }
   obtenerNombre(): string | null {
     return localStorage.getItem('nombre');
@@ -41,16 +51,17 @@ export class AuthService {
   }
 
   esAdmin(): boolean {
-    return this.obtenerRol() === 'ADMIN';
+    return this.obtenerRol() === UserRole.Admin;
   }
   esTecnico(): boolean {
-    return this.obtenerRol() === 'TECNICO';
+    return this.obtenerRol() === UserRole.Tecnico;
   }
   esUsuario(): boolean {
-    return this.obtenerRol() === 'USER';
+    return this.obtenerRol() === UserRole.User;
   }
-  obtenerRol(): string | null {
-    return localStorage.getItem('rol');
+  obtenerRol(): UserRole | null {
+    const rol = localStorage.getItem('rol');
+    return isUserRole(rol) ? rol : null;
   }
 
 

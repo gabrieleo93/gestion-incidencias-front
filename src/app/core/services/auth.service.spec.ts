@@ -5,6 +5,7 @@ import {AuthResponse} from '../../models/auth-response.model';
 import {environment} from '../../../environments/environment';
 import { AuthService } from './auth.service';
 import {AuthRequest} from '../../models/auth-request.model';
+import { UserRole } from '../../models/user-role.model';
 
 describe('AuthService', () => {
   let service: AuthService;
@@ -33,7 +34,7 @@ describe('AuthService', () => {
     usuarioId: 10,
     nombre: 'Gabriel',
     email: 'gabriel@example.com',
-    rol: 'ADMIN'
+    rol: UserRole.Admin
   };
 service.guardarSesion(response);
 
@@ -71,7 +72,7 @@ it('should send a POST request when logging in', () => {
     usuarioId: 10,
     nombre: 'Gabriel',
     email: 'gabriel@example.com',
-    rol: 'ADMIN'
+    rol: UserRole.Admin
   };
 
   service.login(credentials).subscribe(response => {
@@ -86,5 +87,40 @@ it('should send a POST request when logging in', () => {
   expect(request.request.body).toEqual(credentials);
 
   request.flush(expectedResponse);
+});
+
+it('should return the stored user id as a number', () => {
+  localStorage.setItem('usuarioId', '10');
+
+  expect(service.obtenerUsuarioId()).toBe(10);
+});
+
+it('should return null for an invalid user id', () => {
+  localStorage.setItem('usuarioId', 'usuario-invalido');
+
+  expect(service.obtenerUsuarioId()).toBeNull();
+});
+
+it('should recognize every supported role', () => {
+  localStorage.setItem('rol', UserRole.Admin);
+  expect(service.obtenerRol()).toBe(UserRole.Admin);
+  expect(service.esAdmin()).toBeTrue();
+
+  localStorage.setItem('rol', UserRole.Tecnico);
+  expect(service.obtenerRol()).toBe(UserRole.Tecnico);
+  expect(service.esTecnico()).toBeTrue();
+
+  localStorage.setItem('rol', UserRole.User);
+  expect(service.obtenerRol()).toBe(UserRole.User);
+  expect(service.esUsuario()).toBeTrue();
+});
+
+it('should return null for an unknown role', () => {
+  localStorage.setItem('rol', 'ROL_DESCONOCIDO');
+
+  expect(service.obtenerRol()).toBeNull();
+  expect(service.esAdmin()).toBeFalse();
+  expect(service.esTecnico()).toBeFalse();
+  expect(service.esUsuario()).toBeFalse();
 });
 });

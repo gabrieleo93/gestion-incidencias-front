@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 
 import { IncidenciaService } from '../../../core/services/incidencia.service';
 import { IncidenciaRequest } from '../../../models/incidencia-request.model';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-crear-incidencia',
@@ -23,6 +24,7 @@ export class CrearIncidenciaComponent {
   constructor(
     private fb: FormBuilder,
     private incidenciaService: IncidenciaService,
+    private authService: AuthService,
     private router: Router
   ) {
     this.incidenciaForm = this.fb.group({
@@ -38,7 +40,12 @@ export class CrearIncidenciaComponent {
       return;
     }
 
-    const usuarioId = Number(localStorage.getItem('usuarioId'));
+    const usuarioId = this.authService.obtenerUsuarioId();
+
+    if (usuarioId === null) {
+      this.mensajeError = 'No se pudo identificar al usuario de la sesión';
+      return;
+    }
 
     const request: IncidenciaRequest = {
       titulo: this.incidenciaForm.value.titulo,

@@ -4,6 +4,10 @@ import { ListadoIncidenciasComponent } from './features/incidencias/listado-inci
 import { CrearIncidenciaComponent } from './features/incidencias/crear-incidencia/crear-incidencia.component';
 import { DetalleIncidenciaComponent } from './features/incidencias/detalle-incidencia/detalle-incidencia.component';
 import { authGuard } from './core/guards/auth.guard';
+import { roleGuard } from './core/guards/role.guard';
+import { UserRole } from './models/user-role.model';
+import { RoleRouteData } from './models/role-route-data.model';
+import { AccesoDenegadoComponent } from './features/auth/acceso-denegado/acceso-denegado.component';
 
 export const routes: Routes = [
   {
@@ -18,11 +22,19 @@ export const routes: Routes = [
   {
     path: 'incidencias/nueva',
     component: CrearIncidenciaComponent,
-    canActivate: [authGuard]
+    canActivate: [authGuard, roleGuard],
+    data: {
+      roles: [UserRole.Admin, UserRole.User]
+    } satisfies RoleRouteData
   },
   {
     path: 'incidencias/:id',
     component: DetalleIncidenciaComponent,
+    canActivate: [authGuard]
+  },
+  {
+    path: 'acceso-denegado',
+    component: AccesoDenegadoComponent,
     canActivate: [authGuard]
   },
   {
