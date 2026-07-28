@@ -1,2 +1,27 @@
-<h2>Acceso denegado</h2>
-<p>No tienes permisos para acceder a esta sección.</p>
+<section
+  class="access-denied-page"
+  aria-labelledby="access-denied-title"
+>
+  <article class="access-denied-card">
+    <span class="status-code" aria-hidden="true">403</span>
+
+    <p class="page-kicker">Permiso insuficiente</p>
+
+    <h1 id="access-denied-title">
+      Acceso denegado
+    </h1>
+
+    <p class="access-denied-description">
+      Tu sesión está activa, pero el rol
+      <strong>{{ rolUsuario }}</strong>
+      no tiene permisos para acceder a esta sección.
+    </p>
+
+    <a
+      routerLink="/incidencias"
+      class="back-link"
+    >
+      Volver al listado de incidencias
+    </a>
+  </article>
+</section>
