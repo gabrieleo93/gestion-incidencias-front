@@ -10,6 +10,10 @@
     {{ mensajeError }}
   </p>
 
+  <p *ngIf="mensajeExito" class="success">
+    {{ mensajeExito }}
+  </p>
+
   <p *ngIf="!incidencia && !mensajeError">
     Cargando incidencia...
   </p>
@@ -56,6 +60,29 @@
     <p *ngIf="incidencia.fechaCierre">
       <strong>Fecha de cierre:</strong>
       {{ incidencia.fechaCierre | date:'dd/MM/yyyy HH:mm' }}
+    </p>
+
+    <section
+      *ngIf="puedeGestionarEstado()"
+      class="estado-actions"
+      aria-labelledby="estado-actions-title"
+    >
+      <h4 id="estado-actions-title">Gestionar estado</h4>
+      <p>
+        La incidencia solo puede avanzar al siguiente estado de su ciclo.
+      </p>
+      <button
+        type="button"
+        class="estado-btn"
+        [disabled]="actualizandoEstado"
+        (click)="actualizarEstado()"
+      >
+        {{ actualizandoEstado ? 'Actualizando...' : textoAccionEstado() }}
+      </button>
+    </section>
+
+    <p *ngIf="estaCerrada()" class="closed-notice">
+      Esta incidencia está cerrada y no puede reabrirse.
     </p>
 
   </article>

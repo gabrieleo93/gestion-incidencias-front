@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { Incidencia } from '../../models/incidencia.model';
 import { IncidenciaRequest } from '../../models/incidencia-request.model';
+import { EstadoIncidencia } from '../../models/estado-incidencia.model';
 
 @Injectable({
   providedIn: 'root'
@@ -37,5 +38,18 @@ export class IncidenciaService {
   // Cambio funcional: endpoint para que USER abra solo el detalle de una incidencia propia.
   obtenerMiIncidenciaPorId(id: number): Observable<Incidencia> {
     return this.http.get<Incidencia>(`${this.apiUrl}/mis/${id}`);
+  }
+
+  actualizarEstado(
+    id: number,
+    estado: EstadoIncidencia
+  ): Observable<Incidencia> {
+    return this.http.put<Incidencia>(
+      `${this.apiUrl}/${id}/estado`,
+      null,
+      {
+        params: { estado }
+      }
+    );
   }
 }

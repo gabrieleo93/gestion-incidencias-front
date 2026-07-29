@@ -57,6 +57,14 @@
   font-weight: 600;
 }
 
+.success {
+  color: #166534;
+  background-color: #dcfce7;
+  padding: 12px;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
 .estado,
 .prioridad {
   display: inline-block;
@@ -66,4 +74,52 @@
   font-weight: 700;
   background-color: #e5e7eb;
   color: #111827;
+}
+
+.estado-actions {
+  margin-top: 24px;
+  padding: 18px;
+  border: 1px solid #bfdbfe;
+  border-radius: 8px;
+  background: #eff6ff;
+}
+
+.estado-actions h4 {
+  margin: 0 0 8px;
+  color: #1e3a8a;
+  font-size: 18px;
+}
+
+.estado-actions p {
+  margin: 0 0 16px;
+}
+
+.estado-btn {
+  padding: 10px 16px;
+  border: 0;
+  border-radius: 8px;
+  background: #2563eb;
+  color: #ffffff;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+}
+
+.estado-btn:hover:not(:disabled) {
+  background: #1d4ed8;
+}
+
+.estado-btn:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.closed-notice {
+  margin-top: 24px !important;
+  padding: 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: #f8fafc;
+  color: #475569 !important;
+  font-weight: 600;
 }

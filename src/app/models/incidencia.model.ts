@@ -1,8 +1,10 @@
+import { EstadoIncidencia } from './estado-incidencia.model';
+
 export interface Incidencia {
   id: number;
   titulo: string;
   descripcion: string;
-  estado: 'ABIERTA' | 'EN_PROCESO' | 'RESUELTA' | 'CERRADA';
+  estado: EstadoIncidencia;
   prioridad: 'BAJA' | 'MEDIA' | 'ALTA' | 'CRITICA';
   fechaCreacion: string;
   fechaActualizacion: string | null;
