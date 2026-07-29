@@ -10,6 +10,19 @@ import { UserRole } from '../../models/user-role.model';
 describe('AuthService', () => {
   let service: AuthService;
   let httpTesting: HttpTestingController;
+  const crearTokenDePrueba = (payload: object): string => {
+  const header = btoa(JSON.stringify({
+    alg: 'HS256',
+    typ: 'JWT'
+  }));
+
+  const payloadBase64Url = btoa(JSON.stringify(payload))
+    .replace(/\+/g, '-')
+    .replace(/\//g, '_')
+    .replace(/=+$/g, '');
+
+  return `${header}.${payloadBase64Url}.firma-de-prueba`;
+};
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -122,5 +135,52 @@ it('should return null for an unknown role', () => {
   expect(service.esAdmin()).toBeFalse();
   expect(service.esTecnico()).toBeFalse();
   expect(service.esUsuario()).toBeFalse();
+});
+it('should return false when there is no token', () => {
+  expect(service.estaAutenticado()).toBeFalse();
+});
+it('should return true when the token is valid and not expired', () => {
+  const token = crearTokenDePrueba({
+    exp: Math.floor(Date.now() / 1000) + 60
+  });
+
+  localStorage.setItem('token', token);
+
+  expect(service.estaAutenticado()).toBeTrue();
+  expect(localStorage.getItem('token')).toBe(token);
+});
+it('should logout and return false when the token is expired', () => {
+  const token = crearTokenDePrueba({
+    exp: Math.floor(Date.now() / 1000) - 60
+  });
+
+  localStorage.setItem('token', token);
+  localStorage.setItem('nombre', 'Gabriel');
+  localStorage.setItem('rol', UserRole.Admin);
+
+  expect(service.estaAutenticado()).toBeFalse();
+  expect(localStorage.getItem('token')).toBeNull();
+  expect(localStorage.getItem('nombre')).toBeNull();
+  expect(localStorage.getItem('rol')).toBeNull();
+});
+it('should logout and return false when the token is malformed', () => {
+  localStorage.setItem('token', 'token-invalido');
+  localStorage.setItem('rol', UserRole.User);
+
+  expect(service.estaAutenticado()).toBeFalse();
+  expect(localStorage.getItem('token')).toBeNull();
+  expect(localStorage.getItem('rol')).toBeNull();
+});
+it('should logout and return false when the token has no expiration', () => {
+  const token = crearTokenDePrueba({
+    sub: 'gabriel@example.com'
+  });
+
+  localStorage.setItem('token', token);
+  localStorage.setItem('rol', UserRole.User);
+
+  expect(service.estaAutenticado()).toBeFalse();
+  expect(localStorage.getItem('token')).toBeNull();
+  expect(localStorage.getItem('rol')).toBeNull();
 });
 });
