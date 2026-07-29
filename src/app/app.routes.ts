@@ -9,6 +9,7 @@ import { guestGuard } from './core/guards/guest.guard';
 import { UserRole } from './models/user-role.model';
 import { RoleRouteData } from './models/role-route-data.model';
 import { AccesoDenegadoComponent } from './features/auth/acceso-denegado/acceso-denegado.component';
+import { NoEncontradoComponent } from './features/errors/no-encontrado/no-encontrado.component';
 
 export const routes: Routes = [
   {
@@ -43,5 +44,9 @@ export const routes: Routes = [
     path: '',
     redirectTo: 'login',
     pathMatch: 'full'
-  }
+  },
+  {
+  path: '**',
+  component: NoEncontradoComponent
+}
 ];
