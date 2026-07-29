@@ -5,6 +5,7 @@ import { CrearIncidenciaComponent } from './features/incidencias/crear-incidenci
 import { DetalleIncidenciaComponent } from './features/incidencias/detalle-incidencia/detalle-incidencia.component';
 import { authGuard } from './core/guards/auth.guard';
 import { roleGuard } from './core/guards/role.guard';
+import { guestGuard } from './core/guards/guest.guard';
 import { UserRole } from './models/user-role.model';
 import { RoleRouteData } from './models/role-route-data.model';
 import { AccesoDenegadoComponent } from './features/auth/acceso-denegado/acceso-denegado.component';
@@ -12,7 +13,8 @@ import { AccesoDenegadoComponent } from './features/auth/acceso-denegado/acceso-
 export const routes: Routes = [
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
+    canActivate: [guestGuard]
   },
   {
     path: 'incidencias',
